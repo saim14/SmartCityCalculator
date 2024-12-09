@@ -1,175 +1,180 @@
-#include<iostream>
-#include<string>
+#include <iostream>
+#include <string>
 using namespace std;
 
-class City{
-    protected:
+// Base class for the City data
+class City {
+protected:
     string cityName;
     float totalPopulation;
     float totalShop;
-    //int totalTransport;
     float totalEntrepreneur;
-    public:
-    void getcity(){
-        cout<<"Enter city name: "<<endl;
+
+public:
+    void getCityInfo() {
+        cout << "Enter city name: " << endl;
         getline(cin, cityName);
-        cin.ignore();
-        cout<<"Enter city population: "<<endl;
-        cin>>totalPopulation;
-        cout<<"Enter total shop: "<<endl;
-        cin>>totalShop;
-        cout<<"Enter total Entrepreneurship: "<<endl;
-        cin>>totalEntrepreneur;
-
-
+        cout << "Enter city population: " << endl;
+        cin >> totalPopulation;
+        cout << "Enter total shops: " << endl;
+        cin >> totalShop;
+        cout << "Enter total Entrepreneurship: " << endl;
+        cin >> totalEntrepreneur;
     }
-    
 };
 
-class Hospital : public virtual City{
-    protected:
+// Hospital-related data and calculations
+class Hospital : public virtual City {
+protected:
     float numberOfHospital, capacityOfHospital;
     float numberOfDoctor;
-    float doctorPerPopulation,  populationPerHospital;
-    public:
-    void getHospital(){
-        cout<<"Hospital Information"<<endl;
-        cout<<"===================================================="<<endl;
-        cout<<"Enter total Number of Hospital in the city: "<<endl;
-        cin>>numberOfHospital;
+    float doctorPerPopulation, populationPerHospital;
 
-        cout<<"Enter total capacity of Hospital in the city: "<<endl;
-        cin>>capacityOfHospital;
-
-        cout<<"Enter total Number of doctor in the hospital: "<<endl;
-        cin>>numberOfHospital;
-        
-
-    } 
-
-    void calculationOfHospital(){
-        doctorPerPopulation = ((numberOfDoctor/totalPopulation)*100)+50;
-        populationPerHospital = ((numberOfHospital/totalPopulation)*100)+50;
-
+public:
+    void getHospitalInfo() {
+        cout << "Hospital Information" << endl;
+        cout << "====================================================" << endl;
+        cout << "Enter total number of hospitals in the city: " << endl;
+        cin >> numberOfHospital;
+        cout << "Enter total capacity of hospitals in the city: " << endl;
+        cin >> capacityOfHospital;
+        cout << "Enter total number of doctors in the city: " << endl;
+        cin >> numberOfDoctor;
     }
 
+    void calculateHospitalData() {
+        // Calculate doctor per population and population per hospital
+        if (totalPopulation > 0) {
+            doctorPerPopulation = (numberOfDoctor / totalPopulation) * 100;  // Percentage of doctors per population
+        } else {
+            doctorPerPopulation = 0;
+        }
+
+        if (numberOfHospital > 0) {
+            populationPerHospital = totalPopulation / numberOfHospital;  // Average population per hospital
+        } else {
+            populationPerHospital = 0;
+        }
+    }
 };
 
-class InternetUser : public virtual City{
-    protected:
+// Internet user-related data and calculations
+class InternetUser : public virtual City {
+protected:
     float totalInternetUser;
     float internetUserRate;
-    public:
-    void getInternetUser(){
-        cout<<"Internet User Information"<<endl;
-        cout<<"===================================================="<<endl;
-        cout<<"Enter total number of internet user"<<endl;
-        cin>>totalInternetUser;
-    }
-    void calculationOfInternetUser(){
-        internetUserRate = (totalInternetUser/totalPopulation)*100;
+
+public:
+    void getInternetUserInfo() {
+        cout << "Internet User Information" << endl;
+        cout << "====================================================" << endl;
+        cout << "Enter total number of internet users: " << endl;
+        cin >> totalInternetUser;
     }
 
+    void calculateInternetUserData() {
+        if (totalPopulation > 0) {
+            internetUserRate = (totalInternetUser / totalPopulation) * 100;  // Percentage of internet users
+        } else {
+            internetUserRate = 0;
+        }
+    }
 };
 
-class OnlineOrder : public virtual City{
-    protected:
+// Online order-related data and calculations
+class OnlineOrder : public virtual City {
+protected:
     float totalOnlineShop, onlineShoppingRate, totalOnlineOrder, onlineOrderRate;
-    public:
-    void getOnlineOrder(){
-        cout<<"Online Order Information"<<endl;
-        cout<<"===================================================="<<endl;
-        cout<<"Enter total number of online shop"<<endl;
-        cin>>totalOnlineShop;
-        cout<<"Enter total number of online order"<<endl;
-        cin>>totalOnlineOrder;
-    }
-    void calculationOfOnlineOrder(){
-        onlineShoppingRate = (totalOnlineShop/totalShop)*100;
-        onlineOrderRate = (totalOnlineOrder/totalPopulation)*100;
+
+public:
+    void getOnlineOrderInfo() {
+        cout << "Online Order Information" << endl;
+        cout << "====================================================" << endl;
+        cout << "Enter total number of online shops: " << endl;
+        cin >> totalOnlineShop;
+        cout << "Enter total number of online orders: " << endl;
+        cin >> totalOnlineOrder;
     }
 
-};
-/*
+    void calculateOnlineOrderData() {
+        if (totalShop > 0) {
+            onlineShoppingRate = (totalOnlineShop / totalShop) * 100;  // Percentage of online shops
+        } else {
+            onlineShoppingRate = 0;
+        }
 
-class Trasport : public virtual City{
-    protected:
-    int totalOnlineTransport;
-    int onlineTransportRate;
-    public:
-    void getTransport(){
-        cout<<"Transportation Information"<<endl;
-        cout<<"===================================================="<<endl;
-        cout<<"Enter how many transport are available online"<<endl;
-        cin>>totalOnlineTransport;
-    }
-    void calculationOfTransportation(){
-        onlineTransportRate = (totalOnlineTransport/totalTransport)*100;
+        if (totalPopulation > 0) {
+            onlineOrderRate = (totalOnlineOrder / totalPopulation) * 100;  // Percentage of online orders
+        } else {
+            onlineOrderRate = 0;
+        }
     }
 };
-*/
 
-class Entrepreneurship : public virtual City{
-    protected:
-        float onlineEntrepreneur;
-        float onlineEntrepreneurRate;
-    public:
-    void getEntrepreneur(){
-        cout<<"Entrepreneur Information"<<endl;
-        cout<<"===================================================="<<endl;
-        cout<<"Enter total Online Entrepreneur"<<endl;
-        cin>>onlineEntrepreneur;
-    }
-    void calculationOfEntrepreneur(){
-        onlineEntrepreneurRate = (onlineEntrepreneur/totalEntrepreneur)*100;
+// Entrepreneurship-related data and calculations
+class Entrepreneurship : public virtual City {
+protected:
+    float onlineEntrepreneur;
+    float onlineEntrepreneurRate;
+
+public:
+    void getEntrepreneurInfo() {
+        cout << "Entrepreneur Information" << endl;
+        cout << "====================================================" << endl;
+        cout << "Enter total number of online entrepreneurs: " << endl;
+        cin >> onlineEntrepreneur;
     }
 
+    void calculateEntrepreneurData() {
+        if (totalEntrepreneur > 0) {
+            onlineEntrepreneurRate = (onlineEntrepreneur / totalEntrepreneur) * 100;  // Percentage of online entrepreneurs
+        } else {
+            onlineEntrepreneurRate = 0;
+        }
+    }
 };
 
-
-
-
-
-
-class Result : public Hospital, public InternetUser, public OnlineOrder, public Entrepreneurship{
+// Final Result class to calculate the smart rate of the city
+class Result : public Hospital, public InternetUser, public OnlineOrder, public Entrepreneurship {
 protected:
     float smartRate;
-    public:
-    void SmartCityCalculation(){
-        smartRate = (doctorPerPopulation+populationPerHospital+internetUserRate+onlineShoppingRate+onlineOrderRate+onlineEntrepreneurRate)/6;
+
+public:
+    void calculateSmartCityRate() {
+        // Calculate the Smart Rate using available metrics
+        smartRate = (doctorPerPopulation + populationPerHospital + internetUserRate + onlineShoppingRate + onlineOrderRate + onlineEntrepreneurRate) / 5;
     }
-    void showResult(){
-        cout<<"*******************************************************"<<endl;
-        cout<<"*                                                     *"<<endl;
-        cout<<"*                                                     *"<<endl;
-        cout<<"*                                                     *"<<endl;
-        cout<<"*SMART RATE OF "<<cityName<< "IS "<<smartRate<<"Percent\t*"<<endl;
-        cout<<"*                                                     *"<<endl;
-        cout<<"*                                                     *"<<endl;
-        cout<<"*                                                     *"<<endl;
-        cout<<"*******************************************************"<<endl;
+
+    void showResult() {
+        cout << "*******************************************************" << endl;
+        cout << "*                                                     *" << endl;
+        cout << "*                                                     *" << endl;
+        cout << "*                                                     *" << endl;
+        cout << "* SMART RATE OF " << cityName << " IS " << smartRate << "%  *" << endl;
+        cout << "*                                                     *" << endl;
+        cout << "*                                                     *" << endl;
+        cout << "*                                                     *" << endl;
+        cout << "*******************************************************" << endl;
     }
 };
 
-int main(){
+int main() {
     Result r;
-    cout<<"SMART CITY DETECTOR"<<endl;
-    cout<<"======================================="<<endl;
-    r.getcity();
-    r.getHospital();
-    r.calculationOfHospital();
-    r.getInternetUser();
-    r.calculationOfInternetUser();
-    r.getOnlineOrder();
-    r.calculationOfOnlineOrder();
-    //r.getTransport();
-    //r.calculationOfTransportation();
-    r.getEntrepreneur();
-    r.calculationOfEntrepreneur();
-    r.SmartCityCalculation();
-    r.showResult();
-    
+    cout << "SMART CITY DETECTOR" << endl;
+    cout << "=======================================" << endl;
 
+    r.getCityInfo();
+    r.getHospitalInfo();
+    r.calculateHospitalData();
+    r.getInternetUserInfo();
+    r.calculateInternetUserData();
+    r.getOnlineOrderInfo();
+    r.calculateOnlineOrderData();
+    r.getEntrepreneurInfo();
+    r.calculateEntrepreneurData();
+
+    r.calculateSmartCityRate();
+    r.showResult();
 
     return 0;
 }
